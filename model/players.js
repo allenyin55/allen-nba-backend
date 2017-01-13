@@ -1,8 +1,10 @@
 // Load mongoose package
 var mongoose = require('mongoose');
-var url = 'mongodb://localhost:27017/players';
+var url = 'mongodb://allenyin55:yhn960716@ds163698.mlab.com:63698/allen_nba_app';
 // Connect to MongoDB and create/use database called todoAppTest
 mongoose.connect(url);
+mongoose.Promise = global.Promise;
+
 // Create a schema
 var PlayerSchema = new mongoose.Schema({
     players: [{
