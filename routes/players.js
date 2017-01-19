@@ -18,8 +18,9 @@ router.post('/', function(req, res, next) {
     db_players.findOne({name: regex},function (err, result) {
         if (err) return console.error(err);
         var personId = JSON.parse(JSON.stringify(result)).personId;
-        request.get({url:"http://stats.nba.com/stats/commonplayerinfo/?PlayerID="+personId, forever: true}, function (err, response, body) {
-            if (!err && res.statusCode == 200) {
+        var url = "http://stats.nba.com/stats/commonplayerinfo/?PlayerID="+personId;
+        request.get({url: url}, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
                 res.send(body)
             }
         });
