@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
       var url = "http://stats.nba.com/stats/commonplayerinfo/?PlayerID="+personId;
       var t1 = new Date();
       var options = {
-        url: 'http://stats.nba.com/stats/commonplayerinfo/?PlayerID='+personId,
+        url: url,
         headers: {
           'User-Agent': 'Mozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Mobile Safari/537.36',
           Connection: 'keep-alive'
