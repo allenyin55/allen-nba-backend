@@ -3,7 +3,8 @@ var router = express.Router();
 var players = require('../data/players.json');
 var db_players = require('../model/players');
 var request = require('request');
-var http = require('http')
+require('request-debug')(request);
+var http = require('http');
 
 
 //uncomment this when needs to add players to the database
