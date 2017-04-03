@@ -4,6 +4,7 @@ var request = require('request');
 
 const d = new Date();
 var month = '';
+var day = ""
 var currentMonth = (d.getMonth()+1).toString();
 
 if((d.getMonth()+1)<10){
@@ -11,7 +12,9 @@ if((d.getMonth()+1)<10){
 }
 else month = currentMonth;
 
-var date = d.getFullYear().toString()+month+d.getDate().toString();
+day  = (d.getDate() < 10) ? "0"+ d.getDate().toString() : d.getDate().toString();
+
+var date = d.getFullYear().toString()+month+day;
 
 
 router.get('/', function(req, res, next) {
