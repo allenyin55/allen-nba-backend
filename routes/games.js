@@ -29,6 +29,7 @@ router.get('/last', function(req, res, next){
   const url = 'http://www.espn.com/nba/team/schedule/_/name/gs'
   var teams = [];
   var dates = [];
+  var realDates = []
   const regex = /^[a-zA-Z]{3},\s[a-zA-Z]{3}\s[0-9]{1,2}/
 
   noodle.query({
@@ -40,24 +41,22 @@ router.get('/last', function(req, res, next){
     teams = results.results[0].results;
   });
 
-  noodle.query({
-    url:      url,
-    selector: '.tablehead th, .tablehead td:first-child',
-    extract:  'text'
-  })
-  .then(function (results) {
-    dates = results.results[0].results;
-    var realDates = []
-    for (let i = 0; i < dates.length; i++){
-      if (regex.exec(dates[i]) !== null) realDates.push(regex.exec(dates[i]))
+   noodle.query({
+      url:      url,
+      selector: '.tablehead th, .tablehead td:first-child',
+      extract:  'text'
+    })
+    .then(function (results) {
+      dates = results.results[0].results;
+      for (let i = 0; i < dates.length; i++){
+        if (regex.exec(dates[i]) !== null) realDates.push(regex.exec(dates[i]))
+      }
+    var schedule = {};
+    for (var i = 0; i < teams.length; i++){
+      schedule[realDates[i]] = teams[i]
     }
-   var schedule = {};
-   for (var i = 0; i < teams.length; i++){
-     console.log(dates[i])
-     schedule.dates[i] = teams[i]
-   } 
-   console.log(schedule);
-  });
+    console.log(schedule)
+    });
 });
 
 module.exports = router;
