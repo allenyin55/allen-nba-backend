@@ -126,7 +126,11 @@ router.get('/last', function(req, res, next){
       if (schedule){
         const numSchedule =  getNumSchedule(schedule);
         const lastGameDate = getLastGameDate(date, numSchedule);
-        if (lastGameDate) res.send(lastGameDate)
+        if (lastGameDate){
+          request.get({url: "http://data.nba.com/data/5s/json/cms/noseason/scoreboard/"+lastGameDate+"/games.json"}, function (err, response, body) {
+            res.send(JSON.parse(body).sports_content.games.game);
+        })
+        }
         else res.send("Bug in games.js backend!")
       }
     })
@@ -137,7 +141,11 @@ router.get('/next', function(req, res, next){
       if (schedule){
         const numSchedule =  getNumSchedule(schedule);
         const nextGameDate = getNextGameDate(date, numSchedule);
-        if (nextGameDate) res.send(nextGameDate)
+        if (nextGameDate){
+          request.get({url: "http://data.nba.com/data/5s/json/cms/noseason/scoreboard/"+nextGameDate+"/games.json"}, function (err, response, body) {
+            res.send(JSON.parse(body).sports_content.games.game);
+        })
+        }
         else res.send("Bug in games.js backend!")
       }
     })
