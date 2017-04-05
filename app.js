@@ -10,6 +10,7 @@ var players = require('./routes/players');
 var users = require('./routes/users');
 var standings = require('./routes/standings');
 var games = require('./routes/games');
+var tweets = require('./routes/tweets')
 
 var app = express();
 
@@ -49,6 +50,7 @@ app.use('/users', users);
 app.use('/api/players', players);
 app.use('/api/standings', standings);
 app.use('/api/games', games);
+app.use('/api/tweets', tweets);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
