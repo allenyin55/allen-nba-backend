@@ -99,10 +99,10 @@ function getNumSchedule(schedule){
 }
 
 function getLastGameDate(date, schedule){
- for (let i = 0; i < schedule.length; i++){
+  for (let i = 0; i < schedule.length; i++){
     let thisDate = Object.keys(schedule[i])[0];
     let nextDate = Object.keys(schedule[i+1])[0]
-    if (thisDate < date && nextDate >= date) return thisDate;
+    if (thisDate <= date && nextDate >= date) return thisDate;
   }
 }
 
@@ -110,7 +110,7 @@ function getNextGameDate(date, schedule){
   for (let i = 0; i < schedule.length; i++){
     let thisDate = Object.keys(schedule[i])[0];
     let nextDate = Object.keys(schedule[i+1])[0]
-    if (thisDate <= date && nextDate > date) return nextDate;
+    if (thisDate <= date && nextDate >= date) return nextDate;
   }
 }
 
@@ -126,6 +126,7 @@ router.get('/last', function(req, res, next){
       if (schedule){
         const numSchedule =  getNumSchedule(schedule);
         const lastGameDate = getLastGameDate(date, numSchedule);
+        
         if (lastGameDate){
           request.get({url: "http://data.nba.com/data/5s/json/cms/noseason/scoreboard/"+lastGameDate+"/games.json"}, function (err, response, body) {
             res.send(JSON.parse(body).sports_content.games.game);
